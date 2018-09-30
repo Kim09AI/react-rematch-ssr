@@ -33,7 +33,8 @@ const renderApp = (routes) => {
 
 // eslint-disable-next-line
 ;(async () => {
-    // 预加载当前页面匹配的页面组件
+    // 预加载当前页面匹配的页面组件，当本页面需要的js加载好之后，再进行hydrate
+    // 否则服务端和客户端的渲染结果会不匹配导致报错
     if (process.env.NODE_ENV === 'development') {
         const matches = matchRoutes(routesConfig, window.location.pathname)
         await Promise.all(matches.map(matched => matched.route.component && matched.route.component.preload && matched.route.component.preload()))

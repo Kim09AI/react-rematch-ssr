@@ -21,6 +21,7 @@ export const deferredAsyncConnect = Component => items => {
 
     const newComponent = asyncConnect(asyncItems)(Component)
     if (process.env.isClient && process.env.NODE_ENV === 'development' && Component.preload) {
+        // 把异步组件preload的赋值给newComponent，方便预加载组件
         newComponent.preload = Component.preload
     }
     return newComponent

@@ -1,0 +1,13 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.nav {
+    margin-bottom: 10px;
+}
+
+.app {
+    width: 1000px;
+    margin: 0 auto;
+}

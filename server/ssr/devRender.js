@@ -43,7 +43,9 @@ complier.watch({}, (err, stats) => {
     const result = script.runInThisContext()
     // 执行(function (exports, require, module, __filename, __dirname) { module.exports = 我们的代码 })
     // 把代码执行结果挂载到module.exports上
-    result.call(m.exports, m.exports, require, m)
+    try {
+        result.call(m.exports, m.exports, require, m)
+    } catch (err) {}
     serverBundle = m.exports
 })
 

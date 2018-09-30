@@ -2,6 +2,9 @@ import { init } from '@rematch/core'
 import { reducer as reduxAsyncConnect } from 'redux-connect'
 import createLoadingPlugin from '@rematch/loading'
 import models from '../models'
+import { progressBarMiddleware } from '../utils/middlewares'
+
+const middlewares = process.env.isClient ? [progressBarMiddleware] : []
 
 export default function createStore(initialState) {
     const loading = createLoadingPlugin({ asNumber: true })
@@ -11,7 +14,8 @@ export default function createStore(initialState) {
             reducers: {
                 reduxAsyncConnect
             },
-            initialState
+            initialState,
+            middlewares: [...middlewares]
         },
         plugins: [loading]
     })
