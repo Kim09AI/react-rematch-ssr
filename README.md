@@ -19,3 +19,4 @@ npm start
 - 页面初始数据获取由`react-async-bootstrapper`替换成`redux-connect`
 - 服务端渲染cookie共享
 - 使用husky和lint-staged规范提交的代码
+- 优化开发环境下获取服务端bundle逻辑，简化路由配置
