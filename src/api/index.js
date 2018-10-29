@@ -6,7 +6,7 @@ const instance = axios.create({
 })
 
 instance.interceptors.request.use(config => config, err => Promise.reject(err))
-instance.interceptors.response.use(res => res && res.data, err => Promise.reject(err))
+instance.interceptors.response.use(res => res, err => Promise.reject(err))
 
 class Service {
     constructor(cookie = '') {

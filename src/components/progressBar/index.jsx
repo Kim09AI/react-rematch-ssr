@@ -10,7 +10,7 @@ const mapState = state => ({
 
 @withRouter
 @connect(mapState)
-export default class ProgressBar extends React.Component {
+export default class ProgressBar extends React.PureComponent {
     static propTypes = {
         location: PropTypes.object.isRequired,
         history: PropTypes.object.isRequired,
@@ -25,7 +25,7 @@ export default class ProgressBar extends React.Component {
             percent: 0,
             show: false,
             canSuccess: true,
-            duration: 5000,
+            duration: 3000,
             color: '#007fff',
             failedColor: '#ff0000'
         }
@@ -45,14 +45,6 @@ export default class ProgressBar extends React.Component {
 
         if (nextProps.finish === true && this.props.finish === false) {
             this.state.percent <= 95 && this.finish()
-        }
-    }
-
-    componentDidUpdate() {
-        if (this.state.percent === 100 && !this.state.show) {
-            this.setState({
-                percent: 0
-            })
         }
     }
 
@@ -126,7 +118,13 @@ export default class ProgressBar extends React.Component {
             this.setState({
                 show: false
             })
-        }, 500)
+
+            setTimeout(() => {
+                this.setState({
+                    percent: 0
+                })
+            }, 500)
+        }, 300)
         return this
     }
 

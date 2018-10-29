@@ -8,8 +8,8 @@ export const detail = {
     effects: {
         async getTopicById(id, { api }) {
             try {
-                const res = await api.getTopicById(id)
-                this.setTopicDetail(res.data)
+                const { data } = await api.getTopicById(id)
+                this.setTopicDetail(data.data)
             } catch (error) {
                 console.log(error)
             }

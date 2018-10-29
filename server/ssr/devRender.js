@@ -52,7 +52,9 @@ const createRequire = (fileSystem, basePath) => {
         // 把代码执行结果挂载到module.exports上
         try {
             result.call(m.exports, m.exports, _require, m)
-        } catch (err) {}
+        } catch (err) {
+            console.log(err)
+        }
 
         return m.exports
     }
@@ -72,6 +74,7 @@ complier.watch({}, (err, stats) => {
     stats.warnings.forEach(warn => console.warn(warn))
 
     serverBundle = _require('./' + serverConfig.output.filename)
+    console.log('server bundle complie success')
 })
 
 module.exports = function devRender(req, res, next) {

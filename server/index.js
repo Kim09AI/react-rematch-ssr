@@ -32,7 +32,12 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
     const status = err.status || 500
-    res.status(status).send(err.message)
+    if (isDev) {
+        console.log(err)
+        res.status(status).send(err.message)
+    } else {
+        res.status(status).send('发生未知错误，请稍后重试')
+    }
 })
 
 const port = process.env.PORT || 3000
