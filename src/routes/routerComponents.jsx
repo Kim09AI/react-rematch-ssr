@@ -1,17 +1,8 @@
-import Loadable from 'react-loadable'
+import loadable from '../components/loadable'
 import { deferredAsyncConnect } from '../utils/deferredAsyncConnect'
 
-const Loading = () => null
-
-const Topics = Loadable({
-    loader: () => import(/* webpackChunkName: 'page-topics' */ '../containers/topics'),
-    loading: Loading
-})
-
-const Detail = Loadable({
-    loader: () => import(/* webpackChunkName: 'page-detail' */ '../containers/detail'),
-    loading: Loading
-})
+const Topics = loadable(() => import(/* webpackChunkName: 'page-topics' */ '../containers/topics'))
+const Detail = loadable(() => import(/* webpackChunkName: 'page-detail' */ '../containers/detail'))
 
 export default {
     Topics: deferredAsyncConnect(Topics)({

@@ -5,8 +5,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const ReactLoadablePlugin = require('react-loadable/webpack').ReactLoadablePlugin
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const LoadablePlugin = require('@loadable/webpack-plugin')
 const hash = require('hash-sum')
 const base = require('./webpack.conf.base')
 const config = require('./config')
@@ -97,7 +97,10 @@ module.exports = merge(base, {
             {
                 test: /\.(js|jsx)$/,
                 use: {
-                    loader: 'babel-loader'
+                    loader: 'babel-loader',
+                    options: {
+                        cacheDirectory: true
+                    }
                 },
                 include: r('src')
             },
@@ -158,7 +161,7 @@ module.exports = merge(base, {
         new HtmlWebpackPlugin({
             filename: 'server.ejs',
             template: '!!ejs-compiled-loader!' + r('public/server.template.ejs'),
-            inject: true,
+            inject: false, // 服务端渲染时手动注入
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,
@@ -181,9 +184,7 @@ module.exports = merge(base, {
         new CopyWebpackPlugin([
             { from: r('public'), to: '', ignore: ['index.template.html', 'server.template.ejs'] }
         ]),
-        new ReactLoadablePlugin({
-            filename: './dist/react-loadable.json'
-        }),
+        new LoadablePlugin(),
         new webpack.NamedChunksPlugin(chunk => {
             if (chunk.name) {
                 return chunk.name

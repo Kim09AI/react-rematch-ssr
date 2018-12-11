@@ -2,6 +2,7 @@ import { asyncConnect } from 'redux-connect'
 
 export const deferredAsyncConnect = Component => items => {
     const _items = Array.isArray(items) ? items : [items]
+
     const asyncItems = process.env.isClient
         ? _items.map(item => {
             const { promise, deferred } = item
@@ -20,9 +21,5 @@ export const deferredAsyncConnect = Component => items => {
         : _items
 
     const newComponent = asyncConnect(asyncItems)(Component)
-    if (process.env.isClient && Component.preload) {
-        // 把异步组件preload的赋值给newComponent，方便预加载组件
-        newComponent.preload = Component.preload
-    }
     return newComponent
 }
