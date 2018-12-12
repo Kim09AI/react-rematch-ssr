@@ -6,11 +6,14 @@ const serialize = require('serialize-javascript')
 const loadOnServer = require('redux-connect').loadOnServer
 const ChunkExtractor = require('@loadable/server').ChunkExtractor
 
+const host = process.env.HOST || 'localhost'
+const port = process.env.PORT || 3000
+
 module.exports = async (template, serverBundle, stats, req, res, next) => {
     try {
         const routerContext = {}
         const { default: createApp, createStore, routes, createSSRApi } = serverBundle
-        const location = url.parse(req.url)
+        const location = new url.URL(req.url, `http://${host}:${port}`)
         const store = createStore()
         const api = createSSRApi(req.headers.cookie)
         const helpers = { api }
