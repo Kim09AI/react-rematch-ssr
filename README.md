@@ -26,6 +26,6 @@ npm start
 ## 主要优化
 - 状态管理由`redux`和`redux-saga`替换成`rematch`
 - 页面初始数据获取由`react-async-bootstrapper`替换成`redux-connect`
-- 服务端渲染cookie共享
+- 服务端渲染cookie的携带
 - 使用husky和lint-staged规范提交的代码
 - 优化开发环境下获取服务端bundle逻辑，简化路由配置
