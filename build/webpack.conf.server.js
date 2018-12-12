@@ -46,14 +46,15 @@ module.exports = merge(base, {
                     {
                         use: [
                             {
-                                loader: 'css-loader/locals',
+                                loader: 'css-loader',
                                 options: {
                                     modules: config.common.cssModules,
                                     localIdentName: process.env.NODE_ENV === 'development'
                                         ? '[path]_[name]_[local]_[hash:base64:5]'
                                         : '[local]_[hash:base64:5]',
                                     importLoaders: 1,
-                                    camelCase: true
+                                    camelCase: true,
+                                    exportOnlyLocals: true
                                 }
                             },
                             {
